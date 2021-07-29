@@ -7,3 +7,17 @@
       name:
         - apache2
       update_cache: yes
+  - name: création des dossiers /var/www/html
+    file:
+        path: /var/www/html
+        mode: '0755'
+        state: directory
+  - name: copie du fichier index.html
+    copy: 
+      src: conf/html/
+      dest: /var/www/html
+  - name: demarrage service apache2
+    service:
+        name: apache2
+        state: started
+        enabled: yes
