@@ -2,20 +2,24 @@
 - hosts: all
   become: true
   tasks:
+  # module pour installer apache2
   - name: install apache2
     apt:
       name:
         - apache2
       update_cache: yes
+  # module pour créer les dossier et configurer leur droits
   - name: création des dossiers /var/www/html
     file:
         path: /var/www/html
         mode: '0755'
         state: directory
+  # module pour copier le fichier
   - name: copie du fichier index.html
     copy: 
       src: conf/html/
       dest: /var/www/html
+  # module pour démarrer le service apache2
   - name: demarrage service apache2
     service:
         name: apache2
